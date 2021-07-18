@@ -7,11 +7,13 @@
     <title>My protfolio</title>
     <style>
         .main{
+            display:flex;
             background-color:rgb(51, 52, 68);
             padding:15px;
             height:100vh;
             color:#ffff;
             font-family: 'Times New Roman', Times, serif;
+           
         }
         #Image{
             border-radius: 50%;
@@ -19,6 +21,10 @@
         .para{
             margin:15px;
         }
+        .protfolio{
+           
+            margin:15px 40px;
+             }
     </style>
 </head>
 <body>
@@ -30,12 +36,14 @@
   >
   <div class="para">
     <h2 id="name"></h2>
-    <p id="bio"></p>
-    <h5 id="follower"></h5>
-    <p>Check me on <a id="github" style="color: rgb(204, 88, 179);">GITHUB</a></p>
+    <h4 style="color: rgb(234, 247, 118);" id="bio"></h4>
+    <h5 style="color: rgb(234, 247, 118);"id="follower"></h5>
+    <p style="color: rgb(234, 247, 118);">Check me on <a id="github" style="color:rgb(94, 247, 170);" >GITHUB</a></p>
   </div>
-  <div class="repos">
-      <h1 >My Protfolio</h1>
+  <div class="protfolio">
+      <h1>My Protfolio</h1>
+      <h4 style="color: rgb(234, 247, 118);">Here are my projects</h4>
+      <li style="color: rgb(94, 247, 170);" id="repos"></li>
   </div>
   
 </div>
@@ -46,17 +54,25 @@
         console.log(data)
         let followersCount=data["followers"];
         console.log(followersCount);
-        let followerInfo= 'I have been followed by ${followersCount} people in GITHUB';
+        let followerInfo= 'I have not been followed by any people  in GITHUB';
         document.getElementById('Image').src= data["avatar_url"];
         document.getElementById('name').textContent= data["name"];
-        document.getElementById('bio').textContent= data["bio"];
+        document.getElementById('bio').textContent= data.bio;
         document.getElementById("follower").textContent=followerInfo;
         document.getElementById("github").href=data["html_url"];
         document.getElementById("mainContainer"). hidden=false;
         document.getElementById("loading"). hidden=true;
+    })
 
-    }
-    )
+    fetch("https://api.github.com/users/MabishaDahal/repos")
+    .then(response => response.json())
+    .then(function(data){ 
+        console.log(data)
+        for(let i=0; i<1; i++)
+        {
+            document.getElementById("repos").textContent= data[i].name}
+             console.log(data[i].name)
+    })
 </script>
 </body>
 </html>
